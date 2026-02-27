@@ -1,0 +1,36 @@
+Compiler Construction: CS 4318
+Project-1 (Scanner for mC)
+
+1. 
+   Knowledge Neupane, CS4318
+   Carson Riefel, CS4318
+
+2. 
+
+   We split the work evenly. Both contributed to coding, testing, and documentation.
+
+   Knowledge Neupane:
+   - Strings: full handling (start/end quotes, escapes \n \t \" \\, error on bad escape e.g. \b, no multi-line, unterminated error)
+   - Comments: block comments ignored; unterminated comment error at start position
+   - All error printing with correct line:column (Illegal token, unterminated comment/string, unrecognized escape, string spans lines)
+   - Column tracking (scancol, yycol, scanlineno) so positions are accurate
+   - Helper code: processString(), updateCol(), countLines(), STRING/COMMENT start conditions
+
+   Carson Riefel:
+   - Keywords: the 8 reserved words (if, else, while, int, string, char, return, void), each its own token
+   - Integer constants: no leading zero, atoi value; leading-zero returns ERROR
+   - Character constants: 'x' handling
+   - Operators and special symbols: + * / % < > <= >= == != = [ ] { } ( ) , ; @ ++ -- && || ! — one rule each
+   - Whitespace: ignore spaces/tabs/newlines; reset column on newline
+
+3. Provide two examples of how you will test the correctness of your code.
+   (Different from the ones in the project document.)
+
+   Example 1: Input:  int x = 42;
+   Expected: <KEYWORD, int> : (1:1), <ID, x> : (1:5), <OPERATOR, => : (1:7), <INTEGER, 42> : (1:9), <PUNCTUATION, ;> : (1:11)
+
+   Example 2: Input:  "line1\nline2"
+   Expected: One STRING token at (1:1) with value containing newline between line1 and line2.
+
+4. Extra grading instructions if you choose not to use makefile.
+  Ans: We used the makefile: make clean; make
